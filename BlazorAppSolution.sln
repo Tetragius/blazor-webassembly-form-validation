@@ -9,6 +9,10 @@ ProjectSection(SolutionItems) = preProject
 	LICENSE = LICENSE
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Model", "BlazorApp.Model\BlazorApp.Model.csproj", "{B28701A3-618C-4516-AD7A-8874D385DD7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Api", "BlazorApp.Api\BlazorApp.Api.csproj", "{2A4AEB47-D434-44C4-8789-80C4FF5C6127}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +23,13 @@ Global
 		{485DA59C-DB51-4659-8646-35981FCC9FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{485DA59C-DB51-4659-8646-35981FCC9FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{485DA59C-DB51-4659-8646-35981FCC9FEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B28701A3-618C-4516-AD7A-8874D385DD7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B28701A3-618C-4516-AD7A-8874D385DD7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B28701A3-618C-4516-AD7A-8874D385DD7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B28701A3-618C-4516-AD7A-8874D385DD7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A4AEB47-D434-44C4-8789-80C4FF5C6127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A4AEB47-D434-44C4-8789-80C4FF5C6127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A4AEB47-D434-44C4-8789-80C4FF5C6127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A4AEB47-D434-44C4-8789-80C4FF5C6127}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

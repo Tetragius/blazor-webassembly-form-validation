@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using System.ComponentModel.DataAnnotations
 @using System.Text.Json
+@using BlazorApp.Model.Dto
 @inject IJSRuntime JSRuntime;
 
 <div class="card m-3">
@@ -11,54 +12,54 @@
             <div class="form-row">
                 <div class="form-group col">
                     <label>Title</label>
-                    <InputSelect @bind-Value="model.Title" class="form-control">
+                    <InputSelect @bind-Value="_cardModel.Title" class="form-control">
                         <option value=""></option>
                         <option value="Mr">Mr</option>
                         <option value="Mrs">Mrs</option>
                         <option value="Miss">Miss</option>
                         <option value="Ms">Ms</option>
                     </InputSelect>
-                    <ValidationMessage For="@(() => model.Title)" />
+                    <ValidationMessage For="@(() => _cardModel.Title)" />
                 </div>
                 <div class="form-group col-5">
                     <label>First Name</label>
-                    <InputText @bind-Value="model.FirstName" class="form-control" />
-                    <ValidationMessage For="@(() => model.FirstName)" />
+                    <InputText @bind-Value="_cardModel.FirstName" class="form-control" />
+                    <ValidationMessage For="@(() => _cardModel.FirstName)" />
                 </div>
                 <div class="form-group col-5">
                     <label>Last Name</label>
-                    <InputText @bind-Value="model.LastName" class="form-control" />
-                    <ValidationMessage For="@(() => model.LastName)" />
+                    <InputText @bind-Value="_cardModel.LastName" class="form-control" />
+                    <ValidationMessage For="@(() => _cardModel.LastName)" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label>Date of Birth</label>
-                    <InputDate @bind-Value="model.DateOfBirth" class="form-control" />
-                    <ValidationMessage For="@(() => model.DateOfBirth)" />
+                    <InputDate @bind-Value="_cardModel.DateOfBirth" class="form-control" />
+                    <ValidationMessage For="@(() => _cardModel.DateOfBirth)" />
                 </div>
                 <div class="form-group col">
                     <label>Email</label>
-                    <InputText @bind-Value="model.Email" class="form-control" />
-                    <ValidationMessage For="@(() => model.Email)" />
+                    <InputText @bind-Value="_cardModel.Email" class="form-control" />
+                    <ValidationMessage For="@(() => _cardModel.Email)" />
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col">
                     <label>Password</label>
-                    <InputText @bind-Value="model.Password" type="password" class="form-control" />
-                    <ValidationMessage For="@(() => model.Password)" />
+                    <InputText @bind-Value="_cardModel.Password" type="password" class="form-control" />
+                    <ValidationMessage For="@(() => _cardModel.Password)" />
                 </div>
                 <div class="form-group col">
                     <label>Confirm Password</label>
-                    <InputText @bind-Value="model.ConfirmPassword" type="password" class="form-control" />
-                    <ValidationMessage For="@(() => model.ConfirmPassword)" />
+                    <InputText @bind-Value="_cardModel.ConfirmPassword" type="password" class="form-control" />
+                    <ValidationMessage For="@(() => _cardModel.ConfirmPassword)" />
                 </div>
             </div>
             <div class="form-group form-check">
-                <InputCheckbox @bind-Value="model.AcceptTerms" id="acceptTerms" class="form-check-input" />
+                <InputCheckbox @bind-Value="_cardModel.AcceptTerms" id="acceptTerms" class="form-check-input" />
                 <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
-                <ValidationMessage For="@(() => model.AcceptTerms)" />
+                <ValidationMessage For="@(() => _cardModel.AcceptTerms)" />
             </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-primary mr-1">Register</button>
@@ -69,58 +70,23 @@
 </div>
 
 @code {
-    private Model model = new Model();
+    private CardModel _cardModel = new CardModel();
     private EditContext editContext;
 
     protected override void OnInitialized()
     {
-        editContext = new EditContext(model);
+        editContext = new EditContext(_cardModel);
     }
 
     private void HandleValidSubmit()
     {
-        var modelJson = JsonSerializer.Serialize(model, new JsonSerializerOptions { WriteIndented = true });
+        var modelJson = JsonSerializer.Serialize(_cardModel, new JsonSerializerOptions { WriteIndented = true });
         JSRuntime.InvokeVoidAsync("alert", $"SUCCESS!! :-)\n\n{modelJson}");
     }
 
     private void HandleReset()
     {
-        model = new Model();
-        editContext = new EditContext(model);
-    }
-
-    private class Model
-    {
-        [Required]
-        public string Title { get; set; }
-
-        [Required]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
-
-        [Required]
-        [Display(Name = "Date of Birth")]
-        public DateTime? DateOfBirth { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        [MinLength(6, ErrorMessage = "Password must be at least 6 characters")]
-        public string Password { get; set; }
-
-        [Required]
-        [CompareProperty("Password")]
-        [Display(Name = "Confirm Password")]
-        public string ConfirmPassword { get; set; }
-
-        [Required]
-        [Range(typeof(bool), "true", "true", ErrorMessage = "Accept Ts & Cs is required")]
-        public bool AcceptTerms { get; set; }
+        _cardModel = new CardModel();
+        editContext = new EditContext(_cardModel);
     }
 }
