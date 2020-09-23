@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorApp.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ namespace BlazorApp.Api
 {
     public class Startup
     {
-        static string originsAllowed = "https://localhost:44323/";
+        static string originsAllowed = "https://localhost:*";
         
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -22,6 +23,8 @@ namespace BlazorApp.Api
             
             // add memory cache for data store
             services.AddMemoryCache();
+
+            services.AddSingleton<ICardRepository, CardRepository>();
             
             // add cors policy
             services.AddCors(options =>

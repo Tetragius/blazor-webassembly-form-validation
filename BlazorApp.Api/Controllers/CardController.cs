@@ -12,12 +12,11 @@ namespace BlazorApp.Api.Controllers
     [Route("api/card")]
     public class CardController : ControllerBase
     {
-        private readonly MemoryCacheRepository _cacheRepository;
-        private readonly string _itemCacheKey = "my_card_1";
-
-        public CardController(IMemoryCache memCache)
+        private readonly ICardRepository _repository;
+        
+        public CardController(ICardRepository repo)
         {
-            _cacheRepository = new MemoryCacheRepository(memCache);
+            _repository = repo;
         }
 
         [AllowAnonymous]
@@ -28,13 +27,12 @@ namespace BlazorApp.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<CardModel>> Get()
         {
-            var card = await _cacheRepository.GetFactoryMethodAsync<CardModel>(_itemCacheKey);
+            var card = await _repository.GetAsync();
             if (card == null)
             {
                 // setup first loaded card
                 card = new CardModel();
-                // how long place in cache
-                await _cacheRepository.SetFactoryMethodAsync(card, _itemCacheKey, DateTimeOffset.UtcNow.AddMinutes(5));
+                await _repository.SetAsync(card);
             }
 
             return Ok(card);
@@ -44,12 +42,16 @@ namespace BlazorApp.Api.Controllers
         [HttpPut]
         public async Task<ActionResult<ResultDto>> Update(CardModel request)
         {
-            var card = await _cacheRepository.GetFactoryMethodAsync<CardModel>(_itemCacheKey);
+            var card = await _repository.GetAsync();
             if (card == null)
                 return NotFound();
+            
             card.Email = request.Email;
             card.Password = request.Password;
             card.Title = request.Title;
+
+            await _repository.SetAsync(card);
+            
             return Ok(new ResultDto
             {
                 Ok = true,
