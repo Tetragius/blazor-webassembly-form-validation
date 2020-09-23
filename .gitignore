@@ -1,4 +1,4 @@
-# Logs
+﻿# Logs
 logs
 *.log
 npm-debug.log*
@@ -40,3 +40,7 @@ typings
 # .NET compiled files
 bin
 obj
+
+# Rider folders
+.idea
+
